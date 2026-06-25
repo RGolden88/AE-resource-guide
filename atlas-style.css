@@ -1,0 +1,122 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+
+  background-image: url("atlas-logo.png");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+.site-header {
+  background: rgba(29, 53, 87, 0.85);
+  color: white;
+  text-align: center;
+  padding: 32px 16px;
+}
+
+.site-header h1 {
+  margin: 0 0 8px;
+}
+
+nav {
+  margin-top: 20px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 8px;
+  font-weight: bold;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+.container {
+  width: min(1000px, 92%);
+  margin: 32px auto;
+}
+
+.hero-card,
+.card,
+.chat-card {
+  background: rgba(0, 0, 0, 0.70);
+  backdrop-filter: blur(6px);
+  color: white;
+  padding: 24px;
+  margin-bottom: 20px;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.button,
+button {
+  display: inline-block;
+  background: #2a9d8f;
+  color: white;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 10px;
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.button:hover,
+button:hover {
+  background: #21867a;
+}
+
+.secondary-button {
+  margin-top: 12px;
+  background: #6c757d;
+}
+
+.secondary-button:hover {
+  background: #565e64;
+}
+
+.warning {
+  border-left: 8px solid #e9c46a;
+}
+
+.small-text {
+  font-size: 0.95rem;
+  color: #f1f1f1;
+}
+
+.chat-controls {
+  margin-bottom: 12px;
+}
+
+footer {
+  text-align: center;
+  color: white;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+@media (max-width: 750px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  nav a {
+    display: inline-block;
+    margin: 6px;
+  }
+}

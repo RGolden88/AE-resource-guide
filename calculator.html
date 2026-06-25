@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Atlas Earth Calculator</title>
+
+  <link rel="stylesheet" href="atlas-style.css" />
+</head>
+
+<body>
+
+  <header class="site-header">
+    <h1>Atlas Earth Calculator</h1>
+    <p>Estimate rent, badges, boosts, SRB events, LPUs, and diamonds.</p>
+
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="guide.html">Beginner Guide</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="faq.html">FAQ</a>
+    </nav>
+  </header>
+
+  <main class="container">
+
+    <section class="card">
+      <h2>Main Rent Calculator</h2>
+
+      <label>Common Parcels</label>
+      <input id="commonParcels" type="number" value="0" />
+
+      <label>Rare Parcels</label>
+      <input id="rareParcels" type="number" value="0" />
+
+      <label>Epic Parcels</label>
+      <input id="epicParcels" type="number" value="0" />
+
+      <label>Legendary Parcels</label>
+      <input id="legendaryParcels" type="number" value="0" />
+
+      <label>LPU Count</label>
+      <input id="lpuCount" type="number" value="0" />
+
+      <label>Badges Owned</label>
+      <input id="badgesOwned" type="number" value="0" />
+
+      <label>Boost Hours Per Day</label>
+      <select id="boostHours">
+        <option value="0">0 Hours</option>
+        <option value="0.5">0.5 Hours</option>
+        <option value="1">1 Hour</option>
+        <option value="1.5">1.5 Hours</option>
+        <option value="2">2 Hours</option>
+        <option value="2.5">2.5 Hours</option>
+        <option value="3">3 Hours</option>
+        <option value="3.5">3.5 Hours</option>
+        <option value="4">4 Hours</option>
+        <option value="4.5">4.5 Hours</option>
+        <option value="5">5 Hours</option>
+        <option value="5.5">5.5 Hours</option>
+        <option value="6">6 Hours</option>
+        <option value="6.5">6.5 Hours</option>
+        <option value="7">7 Hours</option>
+        <option value="7.5">7.5 Hours</option>
+        <option value="8">8 Hours</option>
+        <option value="8.5">8.5 Hours</option>
+        <option value="9">9 Hours</option>
+        <option value="9.5">9.5 Hours</option>
+        <option value="10">10 Hours</option>
+        <option value="10.5">10.5 Hours</option>
+        <option value="11">11 Hours</option>
+        <option value="11.5">11.5 Hours</option>
+        <option value="12">12 Hours</option>
+        <option value="12.5">12.5 Hours</option>
+        <option value="13">13 Hours</option>
+        <option value="13.5">13.5 Hours</option>
+        <option value="14">14 Hours</option>
+        <option value="14.5">14.5 Hours</option>
+        <option value="15">15 Hours</option>
+        <option value="15.5">15.5 Hours</option>
+        <option value="16">16 Hours</option>
+        <option value="16.5">16.5 Hours</option>
+        <option value="17">17 Hours</option>
+        <option value="17.5">17.5 Hours</option>
+        <option value="18">18 Hours</option>
+        <option value="18.5">18.5 Hours</option>
+        <option value="19">19 Hours</option>
+        <option value="19.5">19.5 Hours</option>
+        <option value="20">20 Hours</option>
+        <option value="20.5">20.5 Hours</option>
+        <option value="21">21 Hours</option>
+        <option value="21.5">21.5 Hours</option>
+        <option value="22">22 Hours</option>
+        <option value="22.5">22.5 Hours</option>
+        <option value="23">23 Hours</option>
+        <option value="23.5">23.5 Hours</option>
+        <option value="24" selected>24 Hours</option>
+      </select>
+
+      <label>SRB Hours Per Month</label>
+      <select id="srbHours">
+        <option value="0">0 Hours</option>
+        <option value="8">8 Hours</option>
+        <option value="16">16 Hours</option>
+        <option value="24">24 Hours</option>
+        <option value="32">32 Hours</option>
+        <option value="40">40 Hours</option>
+        <option value="48">48 Hours</option>
+        <option value="56">56 Hours</option>
+        <option value="64">64 Hours</option>
+      </select>
+
+      <button id="calculateRent">Calculate Rent</button>
+
+      <div class="result-box">
+        <p><strong>Total Parcels:</strong> <span id="totalParcels">0</span></p>
+        <p><strong>Boost Tier:</strong> <span id="boostTier">0x</span></p>
+        <p><strong>Parcels Needed to Next Boost Tier:</strong> <span id="parcelsToNextTier">0</span></p>
+        <p><strong>Badges Needed to Next Badge Level:</strong> <span id="badgesToNextLevel">0</span></p>
+        <p><strong>Estimated Daily Rent:</strong> $<span id="dailyRent">0.00</span></p>
+        <p><strong>Estimated Weekly Rent:</strong> $<span id="weeklyRent">0.00</span></p>
+        <p><strong>Estimated Monthly Rent:</strong> $<span id="monthlyRent">0.00</span></p>
+        <p><strong>Estimated Yearly Rent:</strong> $<span id="yearlyRent">0.00</span></p>
+        <p><strong>Buy Badge or Parcel?</strong> <span id="buySuggestion">Enter your numbers</span></p>
+        <p><strong>Portfolio Value:</strong> $<span id="portfolioValue">0.00</span></p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Diamond Spin Calculator</h2>
+
+      <label>Diamonds Owned</label>
+      <input id="diamondsOwned" type="number" value="0" />
+
+      <label>Spins Per Day</label>
+      <input id="spinsPerDay" type="number" value="5" />
+
+      <button id="calculateDiamonds">Calculate Diamond Days</button>
+
+      <div class="result-box">
+        <p><strong>Days of Spins:</strong> <span id="diamondDays">0</span></p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Tips</h2>
+
+      <ul>
+        <li>LPUs make upgraded parcels earn like legendary parcels.</li>
+        <li>SRB hours use a 50x boost in this calculator.</li>
+        <li>If ads are not loading, restart the app and check your internet connection.</li>
+        <li>Collect diamonds daily if you want to keep doing spins.</li>
+        <li>Do not treat Atlas Earth like guaranteed income. It is slow earning.</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>
+     This calculator is fan-made and uses simple estimates.
+     Not affiliated with Atlas Earth or Atlas Reality Inc.
+    </p>
+  </footer>
+
+  <script src="calculator.js"></script>
+
+</body>
+</html>
