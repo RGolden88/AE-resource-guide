@@ -1,6 +1,6 @@
 const calculateRent = document.getElementById("calculateRent");
 const calculateDiamonds = document.getElementById("calculateDiamonds");
-const calculateMiniGame = document.getElementById("calculateMiniGame");
+const calculateGoal = document.getElementById("calculateGoal");
 
 function getBoostMultiplier(totalParcels) {
   if (totalParcels <= 150) {
@@ -65,6 +65,34 @@ function getBuySuggestion(totalParcels, badges) {
   }
 
   return "Keep building parcels and watch your next badge tier.";
+}
+
+function estimateDailyRentFromParcels(totalParcels, badges, boostHours, srbHours) {
+  const averageParcelRent = 0.00000000158;
+
+  let rentPerSecond = totalParcels * averageParcelRent;
+
+  rentPerSecond = rentPerSecond * getBadgeBonus(badges);
+
+  const regularBoostMultiplier = getBoostMultiplier(totalParcels);
+  const srbBoostMultiplier = 50;
+
+  const secondsPerDay = 60 * 60 * 24;
+
+  const boostedPart = boostHours / 24;
+  const unboostedPart = 1 - boostedPart;
+
+  const regularDailyRent =
+    rentPerSecond *
+    secondsPerDay *
+    ((boostedPart * regularBoostMultiplier) + unboostedPart);
+
+  const srbDailyAverage =
+    rentPerSecond *
+    ((srbHours * 60 * 60) / 30) *
+    srbBoostMultiplier;
+
+  return regularDailyRent + srbDailyAverage;
 }
 
 /* -----------------------------
@@ -255,3 +283,39 @@ function getBadgesToNextLevel(badges) {
 
   return 0;
 }
+
+calculateGoal.addEventListener("click", function () {
+  const common = Number(document.getElementById("commonParcels").value);
+  const rare = Number(document.getElementById("rareParcels").value);
+  const epic = Number(document.getElementById("epicParcels").value);
+  const legendary = Number(document.getElementById("legendaryParcels").value);
+  const badges = Number(document.getElementById("badgesOwned").value);
+  const boostHours = Number(document.getElementById("boostHours").value);
+  const srbHours = Number(document.getElementById("srbHours").value);
+  const dailyGoal = Number(document.getElementById("dailyGoal").value);
+
+  const currentParcels = common + rare + epic + legendary;
+
+  let testParcels = currentParcels;
+
+  while (
+    estimateDailyRentFromParcels(testParcels, badges, boostHours, srbHours) < dailyGoal
+  ) {
+    testParcels++;
+
+    if (testParcels > 10000) {
+      break;
+    }
+  }
+
+  const additionalParcels = testParcels - currentParcels;
+
+  document.getElementById("goalAmount").textContent =
+    dailyGoal.toFixed(2);
+
+  document.getElementById("goalParcelsNeeded").textContent =
+    testParcels;
+
+  document.getElementById("additionalParcelsNeeded").textContent =
+    additionalParcels;
+});
