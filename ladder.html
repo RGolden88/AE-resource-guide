@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Challenge Ladder</title>
+
+  <link rel="stylesheet" href="atlas-style.css">
+</head>
+
+<body>
+
+  <header class="site-header">
+
+    <h1>Challenge Ladder</h1>
+
+    <p>
+      Learn how the Atlas Earth monthly Challenge Ladder works.
+    </p>
+
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="guide.html">Beginner Guide</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="ladder.html">Ladder</a>
+      <a href="badge-submission.html">Badge Submission Page</a>
+      <a href="faq.html">FAQ</a>
+    </nav>
+
+  </header>
+
+  <main class="container">
+
+   <section class="card">
+
+      <h2>What is the Challenge Ladder?</h2>
+
+      <p>
+        The Atlas Earth Challenge Ladder is a monthly points system that begins at midnight on the first day of each month and runs through the last day of the month. Players earn points by completing challenges such as boosting, buying parcels, collecting badges, playing minigames, completing surveys, and more.
+      </p>
+
+      <p>
+        The goal is to reach 1,600 points before the month ends. Players can choose to complete as many or as few challenges as they want. Completing the ladder rewards players with Atlas Bucks, a badge, and bid tokens. Subscribers may also receive a Legendary Parcel Upgrade (LPU) as part of the reward track.
+      </p>
+
+    </section>
+
+    <section class="card">
+
+      <h2>Challenge Ladder Overview</h2>
+
+      <ol>
+        <li>What the Challenge Ladder is</li>
+        <li>How long it runs</li>
+        <li>The 1600-point monthly goal</li>
+        <li>Free rewards</li>
+        <li>Subscriber rewards</li>
+      </ol>
+
+    </section>
+
+<section class="card">
+
+     <img src="challenge.png"
+     alt="Challenge Ladder"
+     style="width:750px;"> 
+
+</section>
+
+<section class="card">
+  <h2>Challenge Ladder Checklist Calculator</h2>
+
+  <p>
+    Mark challenges as Done or Planned. The calculator will count your completed points,
+    planned points, projected total, and points needed to reach
+   </p>
+
+  <button id="clearChecklist">Clear Checklist</button>
+
+  <h3>Main Challenges</h3>
+
+  <div class="checklist">
+
+    <div class="challenge-item"><strong>Play Fishing 10 Games</strong> — 20 pts
+      <label><input type="checkbox" class="done-challenge" data-points="20"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="20"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Play Fishing 15 Games</strong> — 25 pts
+      <label><input type="checkbox" class="done-challenge" data-points="25"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="25"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Play Fishing 20 Games</strong> — 25 pts
+      <label><input type="checkbox" class="done-challenge" data-points="25"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="25"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Play Fishing 20 Games</strong> — 25 pts
+      <label><input type="checkbox" class="done-challenge" data-points="25"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="25"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Play Golf 10 Games</strong> — 20 pts
+      <label><input type="checkbox" class="done-challenge" data-points="20"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="20"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Play Golf 15 Games</strong> — 25 pts
+      <label><input type="checkbox" class="done-challenge" data-points="25"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="25"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Play Golf 20 Games</strong> — 25 pts
+      <label><input type="checkbox" class="done-challenge" data-points="25"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="25"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Play Golf 20 Games</strong> — 25 pts
+      <label><input type="checkbox" class="done-challenge" data-points="25"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="25"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Play Warship 10 Games</strong> — 20 pts
+      <label><input type="checkbox" class="done-challenge" data-points="20"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="20"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Play Warship 15 Games</strong> — 25 pts
+      <label><input type="checkbox" class="done-challenge" data-points="25"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="25"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Play Warship 20 Games</strong> — 25 pts
+      <label><input type="checkbox" class="done-challenge" data-points="25"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="25"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Play Warship 20 Games</strong> — 25 pts
+      <label><input type="checkbox" class="done-challenge" data-points="25"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="25"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Play Bowling 10 Games</strong> — 20 pts
+      <label><input type="checkbox" class="done-challenge" data-points="20"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="20"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Play Bowling 15 Games</strong> — 25 pts
+      <label><input type="checkbox" class="done-challenge" data-points="25"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="25"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Play Bowling 20 Games</strong> — 25 pts
+      <label><input type="checkbox" class="done-challenge" data-points="25"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="25"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Play Bowling 20 Games</strong> — 25 pts
+      <label><input type="checkbox" class="done-challenge" data-points="25"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="25"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Play Racer 10 Games</strong> — 20 pts
+      <label><input type="checkbox" class="done-challenge" data-points="20"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="20"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Play Racer 15 Games</strong> — 25 pts
+      <label><input type="checkbox" class="done-challenge" data-points="25"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="25"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Play Racer 20 Games</strong> — 25 pts
+      <label><input type="checkbox" class="done-challenge" data-points="25"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="25"> Plan</label>
+    </div>
+    
+    <div class="challenge-item"><strong>Play Racer 20 Games</strong> — 25 pts
+      <label><input type="checkbox" class="done-challenge" data-points="25"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="25"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Surveys 1 Survey</strong> — 50 pts
+      <label><input type="checkbox" class="done-challenge" data-points="50"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="50"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Surveys 2 Surveys</strong> — 70 pts
+      <label><input type="checkbox" class="done-challenge" data-points="70"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="70"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Surveys 2 Surveys</strong> — 80 pts
+      <label><input type="checkbox" class="done-challenge" data-points="80"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="80"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Surveys 3 Surveys</strong> — 90 pts
+      <label><input type="checkbox" class="done-challenge" data-points="90"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="90"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Boost 10 Times</strong> — 20 pts
+      <label><input type="checkbox" class="done-challenge" data-points="20"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="20"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Boost 15 Times</strong> — 25 pts
+      <label><input type="checkbox" class="done-challenge" data-points="25"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="25"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Boost 20 Times</strong> — 30 pts
+      <label><input type="checkbox" class="done-challenge" data-points="30"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="30"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Boost 25 Times</strong> — 35 pts
+      <label><input type="checkbox" class="done-challenge" data-points="35"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="35"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Boost SRB 10 Times</strong> — 15 pts
+      <label><input type="checkbox" class="done-challenge" data-points="15"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="15"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Boost SRB 20 Times</strong> — 25 pts
+      <label><input type="checkbox" class="done-challenge" data-points="25"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="25"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Convert VR $1.00</strong> — 40 pts
+      <label><input type="checkbox" class="done-challenge" data-points="40"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="40"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Convert VR $2.00</strong> — 50 pts
+      <label><input type="checkbox" class="done-challenge" data-points="50"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="50"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Convert VR $4.00</strong> — 65 pts
+      <label><input type="checkbox" class="done-challenge" data-points="65"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="65"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Convert VR $6.00</strong> — 75 pts
+      <label><input type="checkbox" class="done-challenge" data-points="75"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="75"> Plan</label>
+    </div>
+
+     <div class="challenge-item"><strong>Buy Parcels Buy 1</strong> — 40 pts
+      <label><input type="checkbox" class="done-challenge" data-points="40"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="40"> Plan</label>
+    </div>
+
+     <div class="challenge-item"><strong>Buy Parcels Buy 3</strong> — 50 pts
+      <label><input type="checkbox" class="done-challenge" data-points="50"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="50"> Plan</label>
+    </div>
+
+     <div class="challenge-item"><strong>Buy Parcels Buy 3</strong> — 50 pts
+      <label><input type="checkbox" class="done-challenge" data-points="50"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="50"> Plan</label>
+    </div>
+
+     <div class="challenge-item"><strong>Buy Parcels Buy 3</strong> — 60 pts
+      <label><input type="checkbox" class="done-challenge" data-points="60"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="60"> Plan</label>
+    </div>
+
+<div class="challenge-item"><strong>Arcade Goals 1 Completed</strong> — 75 pts
+      <label><input type="checkbox" class="done-challenge" data-points="75"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="75"> Plan</label>
+    </div>
+
+<div class="challenge-item"><strong>Arcade Goals 2 Completed</strong> — 75 pts
+      <label><input type="checkbox" class="done-challenge" data-points="75"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="75"> Plan</label>
+    </div>
+
+<div class="challenge-item"><strong>Arcade Goals 2 Completed</strong> — 75 pts
+      <label><input type="checkbox" class="done-challenge" data-points="75"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="75"> Plan</label>
+    </div>
+
+<div class="challenge-item"><strong>Arcade Goals 3 Completed</strong> — 75 pts
+      <label><input type="checkbox" class="done-challenge" data-points="75"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="75"> Plan</label>
+    </div>
+
+<div class="challenge-item"><strong>Purchase City Badge Buy 1</strong> — 25 pts
+      <label><input type="checkbox" class="done-challenge" data-points="25"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="25"> Plan</label>
+    </div>
+
+<div class="challenge-item"><strong>Purchase City Badge Buy 1</strong> — 30 pts
+      <label><input type="checkbox" class="done-challenge" data-points="30"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="30"> Plan</label>
+    </div>
+
+<div class="challenge-item"><strong>Purchase State Badge Buy 1</strong> — 20 pts
+      <label><input type="checkbox" class="done-challenge" data-points="20"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="20"> Plan</label>
+    </div>
+
+<div class="challenge-item"><strong>Purchase Conuntry Badge Buy 1</strong> — 10 pts
+      <label><input type="checkbox" class="done-challenge" data-points="10"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="10"> Plan</label>
+    </div>
+
+<div class="challenge-item"><strong>Book Travel</strong> — 150 pts
+      <label><input type="checkbox" class="done-challenge" data-points="150"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="150"> Plan</label>
+    </div>
+
+<div class="challenge-item"><strong>AMP USA Complete 1</strong> — 75 pts
+      <label><input type="checkbox" class="done-challenge" data-points="75"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="75"> Plan</label>
+    </div>
+
+<div class="challenge-item"><strong>AMP USA Complete 1</strong> — 80 pts
+      <label><input type="checkbox" class="done-challenge" data-points="80"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="80"> Plan</label>
+    </div>
+
+<div class="challenge-item"><strong>AMP USA Complete 1</strong> — 85 pts
+      <label><input type="checkbox" class="done-challenge" data-points="85"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="85"> Plan</label>
+    </div>
+
+<div class="challenge-item"><strong>AMP USA Complete 1</strong> — 90 pts
+      <label><input type="checkbox" class="done-challenge" data-points="90"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="90"> Plan</label>
+    </div>
+
+  </div>
+
+  <h3>Extra Challenges</h3>
+
+  <div class="checklist">
+
+    <div class="challenge-item"><strong>Buy Parcels Buy 5</strong> — 70 pts
+      <label><input type="checkbox" class="done-challenge" data-points="70"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="70"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Buy Parcels Buy 7</strong> — 80 pts
+      <label><input type="checkbox" class="done-challenge" data-points="80"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="80"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Buy Parcels Buy 10</strong> — 90 pts
+      <label><input type="checkbox" class="done-challenge" data-points="90"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="90"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Buy Parcels Buy 12</strong> — 100 pts
+      <label><input type="checkbox" class="done-challenge" data-points="100"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="100"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Arcade Goals 3 Completed</strong> — 85 pts
+      <label><input type="checkbox" class="done-challenge" data-points="85"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="85"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Arcade Goals 5 Completed</strong> — 85 pts
+      <label><input type="checkbox" class="done-challenge" data-points="85"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="85"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Boost 25 Times</strong> — 40 pts
+      <label><input type="checkbox" class="done-challenge" data-points="40"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="40"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Boost 30 Times</strong> — 45 pts
+      <label><input type="checkbox" class="done-challenge" data-points="45"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="45"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Boost 30 Times</strong> — 50 pts
+      <label><input type="checkbox" class="done-challenge" data-points="50"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="50"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Boost 35 Times</strong> — 55 pts
+      <label><input type="checkbox" class="done-challenge" data-points="55"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="55"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>AMP USA Complete 1</strong> — 95 pts
+      <label><input type="checkbox" class="done-challenge" data-points="95"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="95"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>AMP USA Complete 1</strong> — 100 pts
+      <label><input type="checkbox" class="done-challenge" data-points="100"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="100"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Surveys 3 Surveys</strong> — 100 pts
+      <label><input type="checkbox" class="done-challenge" data-points="100"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="100"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Surveys 4 Surveys</strong> — 150 pts
+      <label><input type="checkbox" class="done-challenge" data-points="150"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="150"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Play Fishing 20 Games</strong> — 25 pts
+      <label><input type="checkbox" class="done-challenge" data-points="25"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="25"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Play Fishing 20 Games</strong> — 25 pts
+      <label><input type="checkbox" class="done-challenge" data-points="25"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="25"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Play Warship 20 Games</strong> — 25 pts
+      <label><input type="checkbox" class="done-challenge" data-points="25"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="25"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Play Warship 20 Games</strong> — 25 pts
+      <label><input type="checkbox" class="done-challenge" data-points="25"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="25"> Plan</label>
+    </div>
+   
+    <div class="challenge-item"><strong>Play Bowling 20 Games</strong> — 25 pts
+      <label><input type="checkbox" class="done-challenge" data-points="25"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="25"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Play Bowling 20 Games</strong> — 25 pts
+      <label><input type="checkbox" class="done-challenge" data-points="25"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="25"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Play Racer 20 Games</strong> — 25 pts
+      <label><input type="checkbox" class="done-challenge" data-points="25"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="25"> Plan</label>
+    </div>
+
+    <div class="challenge-item"><strong>Play Racer 20 Games</strong> — 25 pts
+      <label><input type="checkbox" class="done-challenge" data-points="25"> Done</label>
+      <label><input type="checkbox" class="planned-challenge" data-points="25"> Plan</label>
+    </div>
+  
+  <button id="calculateChecklist">Calculate Checklist Points</button>
+
+  <div class="result-box">
+    <p><strong>Completed Points:</strong> <span id="completedPoints">0</span></p>
+    <p><strong>Planned Points:</strong> <span id="plannedPoints">0</span></p>
+    <p><strong>Projected Total:</strong> <span id="projectedPoints">0</span></p>
+    <p><strong>Points Needed to 1600:</strong> <span id="neededChecklistPoints">1600</span></p>
+  </div>
+</section>
+
+  </main>
+
+  <footer>
+    <p>
+      This is a fan-made Atlas Earth guide and is not affiliated with Atlas Earth or Atlas Reality, Inc.
+    </p>
+  </footer>
+
+<script src="challenge-ladder.js"></script>
+
+</body>
+</html>
+        
+        
+
+
+
