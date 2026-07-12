@@ -137,6 +137,18 @@ if (totalParcels > 0) {
   legendaryPercent = (legendary / totalParcels) * 100;
 }
 
+  document.getElementById("commonPercent").textContent =
+  commonPercent.toFixed(1) + "%";
+
+document.getElementById("rarePercent").textContent =
+  rarePercent.toFixed(1) + "%";
+
+document.getElementById("epicPercent").textContent =
+  epicPercent.toFixed(1) + "%";
+
+document.getElementById("legendaryPercent").textContent =
+  legendaryPercent.toFixed(1) + "%";
+
   /*
     LPU logic:
     LPUs make a parcel earn like legendary.
