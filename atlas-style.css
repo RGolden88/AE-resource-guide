@@ -120,3 +120,159 @@ footer {
     margin: 6px;
   }
 }
+
+.parcel-calculator {
+  max-width: 650px;
+  margin: 30px auto;
+}
+
+.parcel-calculator h2 {
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.parcel-table {
+  display: grid;
+  grid-template-columns: 1.4fr 0.9fr 0.8fr;
+  max-width: 430px;
+  margin: 0 auto 25px;
+  border: 2px solid black;
+  border-radius: 10px;
+  overflow: hidden;
+  background: white;
+  color: black;
+}
+
+.parcel-table > div {
+  min-height: 42px;
+  padding: 7px;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.parcel-table > div:nth-child(3n) {
+  border-right: none;
+}
+
+.table-heading {
+  background: #2f9f12;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+}
+
+.parcel-type {
+  background: #169b0b;
+  color: white;
+  font-weight: bold;
+  justify-content: flex-end !important;
+  padding-right: 14px !important;
+}
+
+.parcel-count {
+  background: #eeeeee;
+}
+
+.parcel-count input {
+  width: 90%;
+  height: 30px;
+  border: none;
+  border-radius: 7px;
+  text-align: center;
+  font-size: 17px;
+  background: white;
+}
+
+.parcel-percent {
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.common-percent {
+  background: #46ff00;
+}
+
+.rare-percent {
+  background: #20b7f5;
+}
+
+.epic-percent {
+  background: #d736e8;
+}
+
+.legendary-percent {
+  background: #ff9f18;
+}
+
+.total-label {
+  background: #58a52a;
+  color: white;
+  font-weight: bold;
+  justify-content: flex-end !important;
+  padding-right: 14px !important;
+}
+
+.total-count {
+  background: white;
+  font-size: 21px;
+}
+
+.total-empty {
+  background: white;
+}
+
+.extra-input-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group label {
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.input-group input,
+.input-group select {
+  width: 100%;
+  padding: 11px;
+  border: 1px solid #aaa;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+#calculateRent {
+  display: block;
+  width: 100%;
+  max-width: 430px;
+  margin: 20px auto;
+}
+
+.result-box {
+  max-width: 430px;
+  margin: 20px auto 0;
+}
+
+@media (max-width: 600px) {
+  .parcel-table {
+    grid-template-columns: 1.3fr 0.8fr 0.8fr;
+    width: 100%;
+  }
+
+  .extra-input-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .parcel-type {
+    font-size: 14px;
+  }
+}

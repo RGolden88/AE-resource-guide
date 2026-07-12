@@ -19,35 +19,107 @@
       <a href="index.html">Home</a>
       <a href="guide.html">Beginner Guide</a>
       <a href="calculator.html">Calculator</a>
-      <a href="challenge-ladder">Challenge Ladder</a>
+      <a href="ladder">Ladder</a>
+      <a href="badge-submission.html">Badge Submission Page</a>
       <a href="faq.html">FAQ</a>
     </nav>
   </header>
 
-  <main class="container">
+<section class="card parcel-calculator">
+  <h2>Parcel Input</h2>
 
-    <section class="card">
-      <h2>Main Rent Calculator</h2>
+  <div class="parcel-table">
 
-      <label>Common Parcels</label>
-      <input id="commonParcels" type="number" value="0" />
+    <div class="table-heading">Type</div>
+    <div class="table-heading">Count</div>
+    <div class="table-heading">% of Parcels</div>
 
-      <label>Rare Parcels</label>
-      <input id="rareParcels" type="number" value="0" />
+    <div class="parcel-type common-label">Common</div>
 
-      <label>Epic Parcels</label>
-      <input id="epicParcels" type="number" value="0" />
+    <div class="parcel-count">
+      <input
+        id="commonParcels"
+        type="number"
+        value="0"
+        min="0"
+      >
+    </div>
 
-      <label>Legendary Parcels</label>
-      <input id="legendaryParcels" type="number" value="0" />
+    <div class="parcel-percent common-percent">
+      <span id="commonPercent">0%</span>
+    </div>
 
-      <label>LPU Count</label>
-      <input id="lpuCount" type="number" value="0" />
+    <div class="parcel-type rare-label">Rare</div>
 
-      <label>Badges Owned</label>
-      <input id="badgesOwned" type="number" value="0" />
+    <div class="parcel-count">
+      <input
+        id="rareParcels"
+        type="number"
+        value="0"
+        min="0"
+      >
+    </div>
 
-      <label>Boost Hours Per Day</label>
+    <div class="parcel-percent rare-percent">
+      <span id="rarePercent">0%</span>
+    </div>
+
+    <div class="parcel-type epic-label">Epic</div>
+
+    <div class="parcel-count">
+      <input
+        id="epicParcels"
+        type="number"
+        value="0"
+        min="0"
+      >
+    </div>
+
+    <div class="parcel-percent epic-percent">
+      <span id="epicPercent">0%</span>
+    </div>
+
+    <div class="parcel-type legendary-label">
+      Legendary
+    </div>
+
+    <div class="parcel-count">
+      <input
+        id="legendaryParcels"
+        type="number"
+        value="0"
+        min="0"
+      >
+    </div>
+
+    <div class="parcel-percent legendary-percent">
+      <span id="legendaryPercent">0%</span>
+    </div>
+
+    <div class="total-label">Total Parcels</div>
+
+    <div class="total-count">
+      <span id="totalParcels">0</span>
+    </div>
+
+    <div class="total-empty"></div>
+
+  </div>
+
+  <div class="extra-input-grid">
+
+    <div class="input-group">
+      <label for="lpuCount">LPU Count</label>
+      <input id="lpuCount" type="number" value="0" min="0">
+    </div>
+
+    <div class="input-group">
+      <label for="badgesOwned">Badges Owned</label>
+      <input id="badgesOwned" type="number" value="0" min="0">
+    </div>
+
+    <div class="input-group">
+      <label for="boostHours">Boost Hours Per Day</label>
       <select id="boostHours">
         <option value="0">0 Hours</option>
         <option value="0.5">0.5 Hours</option>
@@ -99,8 +171,10 @@
         <option value="23.5">23.5 Hours</option>
         <option value="24" selected>24 Hours</option>
       </select>
+    </div>
 
-      <label>SRB Hours Per Month</label>
+    <div class="input-group">
+      <label for="srbHours">SRB Hours Per Month</label>
       <select id="srbHours">
         <option value="0">0 Hours</option>
         <option value="8">8 Hours</option>
@@ -112,18 +186,40 @@
         <option value="56">56 Hours</option>
         <option value="64">64 Hours</option>
       </select>
+    </div>
 
-      <button id="calculateRent">Calculate Rent</button>
+  </div>
 
-      <div class="result-box">
-        <p><strong>Total Parcels:</strong> <span id="totalParcels">0</span></p>
-        <p><strong>Boost Tier:</strong> <span id="boostTier">0x</span></p>
-        <p><strong>Parcels Needed to Next Boost Tier:</strong> <span id="parcelsToNextTier">0</span></p>
-        <p><strong>Badges Needed to Next Badge Level:</strong> <span id="badgesToNextLevel">0</span></p>
-        <p><strong>Estimated Daily Rent:</strong> $<span id="dailyRent">0.00</span></p>
-        <p><strong>Estimated Weekly Rent:</strong> $<span id="weeklyRent">0.00</span></p>
-        <p><strong>Estimated Monthly Rent:</strong> $<span id="monthlyRent">0.00</span></p>
-        <p><strong>Estimated Yearly Rent:</strong> $<span id="yearlyRent">0.00</span></p>
+  <button id="calculateRent">
+    Calculate Rent
+  </button>
+
+  <div class="result-box">
+    <p>
+      <strong>Boost Tier:</strong>
+      <span id="boostTier">0x</span>
+    </p>
+
+    <p>
+      <strong>Estimated Daily Rent:</strong>
+      $<span id="dailyRent">0.00</span>
+    </p>
+
+    <p>
+      <strong>Estimated Weekly Rent:</strong>
+      $<span id="weeklyRent">0.00</span>
+    </p>
+
+    <p>
+      <strong>Estimated Monthly Rent:</strong>
+      $<span id="monthlyRent">0.00</span>
+    </p>
+
+    <p>
+      <strong>Estimated Yearly Rent:</strong>
+      $<span id="yearlyRent">0.00</span>
+    </p>
+
         <p><strong>Buy Badge or Parcel?</strong> <span id="buySuggestion">Enter your numbers</span></p>
         <p><strong>Portfolio Value:</strong> $<span id="portfolioValue">0.00</span></p>
       </div>
