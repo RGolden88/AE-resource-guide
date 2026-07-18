@@ -1,377 +1,738 @@
+/* ============================================
+   Atlas Earth Calculator
+   Cleaned Calculator JS
+============================================ */
+
 const calculateRent = document.getElementById("calculateRent");
 const calculateDiamonds = document.getElementById("calculateDiamonds");
 const calculateGoal = document.getElementById("calculateGoal");
 
+
+/* ============================================
+   Boost Tier
+============================================ */
+
 function getBoostMultiplier(totalParcels) {
-  if (totalParcels <= 150) {
-    return 30;
-  } else if (totalParcels <= 220) {
-    return 20;
-  } else if (totalParcels <= 290) {
-    return 15;
-  } else if (totalParcels <= 365) {
-    return 12;
-  } else if (totalParcels <= 435) {
-    return 10;
-  } else if (totalParcels <= 545) {
-    return 8;
-  } else if (totalParcels <= 625) {
-    return 7;
-  } else if (totalParcels <= 730) {
-    return 6;
-  } else if (totalParcels <= 875) {
-    return 5;
-  } else if (totalParcels <= 1100) {
-    return 4;
-  } else if (totalParcels <= 1500) {
-    return 3;
-  } else {
+
+    if (totalParcels <= 150) return 30;
+    if (totalParcels <= 220) return 20;
+    if (totalParcels <= 290) return 15;
+    if (totalParcels <= 365) return 12;
+    if (totalParcels <= 435) return 10;
+    if (totalParcels <= 545) return 8;
+    if (totalParcels <= 625) return 7;
+    if (totalParcels <= 730) return 6;
+    if (totalParcels <= 875) return 5;
+    if (totalParcels <= 1100) return 4;
+    if (totalParcels <= 1500) return 3;
+
     return 2;
-  }
 }
+
+
+/* ============================================
+   Badge Bonus
+============================================ */
 
 function getBadgeBonus(badges) {
-  if (badges >= 101) {
-    return 1.25;
-  } else if (badges >= 61) {
-    return 1.20;
-  } else if (badges >= 31) {
-    return 1.15;
-  } else if (badges >= 11) {
-    return 1.10;
-  } else if (badges >= 1) {
-    return 1.05;
-  } else {
+
+    if (badges >= 101) return 1.25;
+    if (badges >= 61) return 1.20;
+    if (badges >= 31) return 1.15;
+    if (badges >= 11) return 1.10;
+    if (badges >= 1) return 1.05;
+
     return 1;
-  }
 }
 
+
+/* ============================================
+   Suggestion
+============================================ */
 
 function getBuySuggestion(totalParcels, badges) {
-  if (totalParcels < 40) {
-    return "Buy parcels first.";
-  }
 
-  if (totalParcels >= 40 && badges === 0) {
-    return "Consider buying your first badge.";
-  }
+    if (totalParcels < 40) {
+        return "Buy parcels first.";
+    }
 
-  if (totalParcels >= 150 && badges < 11) {
-    return "Badges may be worth considering.";
-  }
+    if (badges === 0) {
+        return "Consider buying your first badge.";
+    }
 
-  if (badges >= 11) {
-    return "Parcels may be better until your next badge tier.";
-  }
+    if (totalParcels >= 150 && badges < 11) {
+        return "Badges may increase your earnings.";
+    }
 
-  return "Keep building parcels and watch your next badge tier.";
+    if (badges >= 11) {
+        return "Parcels may be better until next badge tier.";
+    }
+
+    return "Keep building your land.";
 }
 
-function estimateDailyRentFromParcels(totalParcels, badges, boostHours, srbHours) {
-  const averageParcelRent = 0.00000000158;
 
-  let rentPerSecond = totalParcels * averageParcelRent;
 
-  rentPerSecond = rentPerSecond * getBadgeBonus(badges);
+/* ============================================
+   Parcel Earnings
+============================================ */
 
-  const regularBoostMultiplier = getBoostMultiplier(totalParcels);
-  const srbBoostMultiplier = 50;
+function calculateParcelIncome(
+    common,
+    rare,
+    epic,
+    legendary,
+    lpu
+){
 
-  const secondsPerDay = 60 * 60 * 24;
+    let remainingLPU = lpu;
 
-  const boostedPart = boostHours / 24;
-  const unboostedPart = 1 - boostedPart;
 
-  const regularDailyRent =
-    rentPerSecond *
-    secondsPerDay *
-    ((boostedPart * regularBoostMultiplier) + unboostedPart);
+    // LPUs upgrade common first
+    let upgradedCommon = Math.min(
+        remainingLPU,
+        common
+    );
 
-  const srbDailyAverage =
-    rentPerSecond *
-    ((srbHours * 60 * 60) / 30) *
-    srbBoostMultiplier;
+    remainingLPU -= upgradedCommon;
 
-  return regularDailyRent + srbDailyAverage;
+
+    let upgradedRare = Math.min(
+        remainingLPU,
+        rare
+    );
+
+    remainingLPU -= upgradedRare;
+
+
+    let upgradedEpic = Math.min(
+        remainingLPU,
+        epic
+    );
+
+
+    let normalCommon = common - upgradedCommon;
+    let normalRare = rare - upgradedRare;
+    let normalEpic = epic - upgradedEpic;
+
+
+    let legendaryParcels =
+        legendary +
+        upgradedCommon +
+        upgradedRare +
+        upgradedEpic;
+
+
+    const commonRent =
+        normalCommon * 0.0000000011;
+
+    const rareRent =
+        normalRare * 0.0000000016;
+
+    const epicRent =
+        normalEpic * 0.0000000022;
+
+    const legendaryRent =
+        legendaryParcels * 0.0000000044;
+
+
+    return (
+        commonRent +
+        rareRent +
+        epicRent +
+        legendaryRent
+    );
 }
 
-/* -----------------------------
-   Main Rent Calculator
------------------------------ */
 
-calculateRent.addEventListener("click", function () {
-  const common = Number(document.getElementById("commonParcels").value);
-  const rare = Number(document.getElementById("rareParcels").value);
-  const epic = Number(document.getElementById("epicParcels").value);
-  const legendary = Number(document.getElementById("legendaryParcels").value);
-  const lpuCount = Number(document.getElementById("lpuCount").value);
-  const badges = Number(document.getElementById("badgesOwned").value);
-  const boostHours = Number(document.getElementById("boostHours").value);
-  const srbHours = Number(document.getElementById("srbHours").value);
 
-  if (
-    isNaN(common) ||
-    isNaN(rare) ||
-    isNaN(epic) ||
-    isNaN(legendary) ||
-    isNaN(lpuCount) ||
-    isNaN(badges) ||
-    isNaN(boostHours) ||
-    isNaN(srbHours)
-  ) {
-    alert("Please make sure every calculator box has a number.");
-    return;
-  }
+/* ============================================
+   Monthly Earnings Calculator
+============================================ */
 
-  const totalParcels = common + rare + epic + legendary;
+function calculateMonthlyRent(data){
 
-let commonPercent = 0;
-let rarePercent = 0;
-let epicPercent = 0;
-let legendaryPercent = 0;
 
-if (totalParcels > 0) {
-  commonPercent = (common / totalParcels) * 100;
-  rarePercent = (rare / totalParcels) * 100;
-  epicPercent = (epic / totalParcels) * 100;
-  legendaryPercent = (legendary / totalParcels) * 100;
+    let rentPerSecond =
+        calculateParcelIncome(
+            data.common,
+            data.rare,
+            data.epic,
+            data.legendary,
+            data.lpu
+        );
+
+
+    rentPerSecond *= getBadgeBonus(data.badges);
+
+
+    const secondsMonth =
+        60 * 60 * 24 * 30;
+
+
+    const srbSeconds =
+        data.srbHours * 60 * 60;
+
+
+    const regularSeconds =
+        secondsMonth - srbSeconds;
+
+
+    const boost =
+        getBoostMultiplier(
+            data.total
+        );
+
+
+    const boostedFraction =
+        data.boostHours / 24;
+
+
+    const normalFraction =
+        1 - boostedFraction;
+
+
+    const regularRent =
+        rentPerSecond *
+        regularSeconds *
+        (
+            boostedFraction * boost +
+            normalFraction
+        );
+
+
+    const srbRent =
+        rentPerSecond *
+        srbSeconds *
+        50;
+
+
+    return regularRent + srbRent;
+
 }
 
-  /*
-    LPU logic:
-    LPUs make a parcel earn like legendary.
-    This calculator upgrades common first,
-    then rare, then epic.
-  */
 
-  let remainingLPU = lpuCount;
 
-  const upgradedCommon = Math.min(remainingLPU, common);
-  remainingLPU = remainingLPU - upgradedCommon;
+/* ============================================
+   Main Calculator Button
+============================================ */
 
-  const upgradedRare = Math.min(remainingLPU, rare);
-  remainingLPU = remainingLPU - upgradedRare;
+calculateRent.addEventListener(
+"click",
+function(){
 
-  const upgradedEpic = Math.min(remainingLPU, epic);
-  remainingLPU = remainingLPU - upgradedEpic;
 
-  const normalCommon = common - upgradedCommon;
-  const normalRare = rare - upgradedRare;
-  const normalEpic = epic - upgradedEpic;
+const common =
+Number(document.getElementById("commonParcels").value);
 
-  const legendaryEarningParcels =
-    legendary + upgradedCommon + upgradedRare + upgradedEpic;
+const rare =
+Number(document.getElementById("rareParcels").value);
 
-  const commonRent = normalCommon * 0.0000000011;
-  const rareRent = normalRare * 0.0000000016;
-  const epicRent = normalEpic * 0.0000000022;
-  const legendaryRent = legendaryEarningParcels * 0.0000000044;
+const epic =
+Number(document.getElementById("epicParcels").value);
 
-  let rentPerSecond =
-    commonRent + rareRent + epicRent + legendaryRent;
+const legendary =
+Number(document.getElementById("legendaryParcels").value);
 
-  const badgeBonus = getBadgeBonus(badges);
+const lpu =
+Number(document.getElementById("lpuCount").value);
 
-  rentPerSecond = rentPerSecond * badgeBonus;
+const badges =
+Number(document.getElementById("badgesOwned").value);
 
-  const secondsPerMonth = 60 * 60 * 24 * 30;
+const boostHours =
+Number(document.getElementById("boostHours").value);
 
-  const regularBoostMultiplier = getBoostMultiplier(totalParcels);
-  const srbBoostMultiplier = 50;
+const srbHours =
+Number(document.getElementById("srbHours").value);
 
-  const srbSeconds = srbHours * 60 * 60;
-  const regularMonthSeconds = secondsPerMonth - srbSeconds;
 
-  const boostedPart = boostHours / 24;
-  const unboostedPart = 1 - boostedPart;
+const total =
+common +
+rare +
+epic +
+legendary;
 
-  const regularMonthlyRent =
-    rentPerSecond *
-    regularMonthSeconds *
-    ((boostedPart * regularBoostMultiplier) + unboostedPart);
 
-  const srbMonthlyRent =
-    rentPerSecond *
-    srbSeconds *
-    srbBoostMultiplier;
 
-  const monthlyRent =
-    regularMonthlyRent + srbMonthlyRent;
+/* Percentages */
 
-  /*
-    Portfolio value estimate:
-    1 parcel costs 100 AB.
-    If buying $100 AB packs gives 2400 AB,
-    then each parcel is worth about $4.17.
-  */
+if(total > 0){
 
-  const dollarValuePerParcel = 100 / 24;
-  const portfolioValue = totalParcels * dollarValuePerParcel;
+document.getElementById("commonPercent").textContent =
+((common / total)*100).toFixed(1)+"%";
 
-  const buySuggestion =
-    getBuySuggestion(totalParcels, badges);
 
-  document.getElementById("totalParcels").textContent =
-    totalParcels;
+document.getElementById("rarePercent").textContent =
+((rare / total)*100).toFixed(1)+"%";
 
-  document.getElementById("boostTier").textContent =
-    regularBoostMultiplier + "x";
 
-  document.getElementById("monthlyRent").textContent =
-    monthlyRent.toFixed(2);
-    const dailyRent = monthlyRent / 30;
-    const weeklyRent = dailyRent * 7;
-    const yearlyRent = monthlyRent * 12;
+document.getElementById("epicPercent").textContent =
+((epic / total)*100).toFixed(1)+"%";
 
-    const parcelsToNextTier = getParcelsToNextTier(totalParcels);
-    const badgesToNextLevel = getBadgesToNextLevel(badges);
 
-  document.getElementById("buySuggestion").textContent =
-    buySuggestion;
+document.getElementById("legendaryPercent").textContent =
+((legendary / total)*100).toFixed(1)+"%";
 
-  document.getElementById("portfolioValue").textContent =
-    portfolioValue.toFixed(2);
+}
+else{
 
-  document.getElementById("dailyRent").textContent =
-     dailyRent.toFixed(2);
+document.getElementById("commonPercent").textContent="0%";
+document.getElementById("rarePercent").textContent="0%";
+document.getElementById("epicPercent").textContent="0%";
+document.getElementById("legendaryPercent").textContent="0%";
 
-   document.getElementById("weeklyRent").textContent =
-     weeklyRent.toFixed(2);
+}
 
-   document.getElementById("yearlyRent").textContent =
-     yearlyRent.toFixed(2);
 
-   document.getElementById("parcelsToNextTier").textContent =
-     parcelsToNextTier;
 
-   document.getElementById("badgesToNextLevel").textContent =
-     badgesToNextLevel;
-  
+const monthly =
+calculateMonthlyRent({
+
+common,
+rare,
+epic,
+legendary,
+lpu,
+badges,
+boostHours,
+srbHours,
+total
+
 });
 
-/* -----------------------------
+
+const daily =
+monthly / 30;
+
+const weekly =
+daily * 7;
+
+const yearly =
+monthly * 12;
+
+
+
+document.getElementById("totalParcels").textContent =
+total;
+
+
+document.getElementById("boostTier").textContent =
+getBoostMultiplier(total)+"x";
+
+
+document.getElementById("dailyRent").textContent =
+daily.toFixed(2);
+
+
+document.getElementById("weeklyRent").textContent =
+weekly.toFixed(2);
+
+
+document.getElementById("monthlyRent").textContent =
+monthly.toFixed(2);
+
+
+document.getElementById("yearlyRent").textContent =
+yearly.toFixed(2);
+
+
+document.getElementById("buySuggestion").textContent =
+getBuySuggestion(total,badges);
+
+
+
+document.getElementById("portfolioValue").textContent =
+(total * (100/24)).toFixed(2);
+
+
+});
+
+/* ============================================
+   SRB Calculator
+============================================ */
+
+const srbDropdown =
+document.getElementById("srbHoursOnly");
+
+
+if (srbDropdown) {
+
+    for(let i = 1; i <= 64; i++){
+
+        let option =
+        document.createElement("option");
+
+        option.value = i;
+
+        option.textContent =
+        i + (i === 1 ? " Hour" : " Hours");
+
+        srbDropdown.appendChild(option);
+
+    }
+
+}
+
+
+
+/*
+   Calculate hourly SRB earnings
+*/
+
+function calculateHourlySRB(){
+
+    const common =
+    Number(document.getElementById("commonParcels").value);
+
+    const rare =
+    Number(document.getElementById("rareParcels").value);
+
+    const epic =
+    Number(document.getElementById("epicParcels").value);
+
+    const legendary =
+    Number(document.getElementById("legendaryParcels").value);
+
+    const lpu =
+    Number(document.getElementById("lpuCount").value);
+
+    const badges =
+    Number(document.getElementById("badgesOwned").value);
+
+
+    const income =
+    calculateParcelIncome(
+        common,
+        rare,
+        epic,
+        legendary,
+        lpu
+    );
+
+
+    return (
+        income *
+        getBadgeBonus(badges) *
+        60 *
+        60 *
+        50
+    );
+
+}
+
+
+
+const calculateSRBOnly =
+document.getElementById("calculateSRBOnly");
+
+
+if(calculateSRBOnly){
+
+calculateSRBOnly.addEventListener(
+"click",
+function(){
+
+
+const hours =
+Number(
+document.getElementById("srbHoursOnly").value
+);
+
+
+const hourly =
+calculateHourlySRB();
+
+
+const total =
+hourly * hours;
+
+
+
+document.getElementById("displaySRBHours")
+.textContent =
+hours;
+
+
+
+document.getElementById("srbPerHour")
+.textContent =
+hourly.toFixed(4);
+
+
+
+document.getElementById("srbOnlyResult")
+.textContent =
+total.toFixed(4);
+
+
+
+});
+
+
+}
+
+
+
+/* ============================================
    Diamond Calculator
------------------------------ */
+============================================ */
 
-calculateDiamonds.addEventListener("click", function () {
-  const diamonds = Number(document.getElementById("diamondsOwned").value);
-  const spinsPerDay = Number(document.getElementById("spinsPerDay").value);
 
-  if (isNaN(diamonds) || isNaN(spinsPerDay)) {
-    alert("Please enter numbers for diamonds and spins.");
-    return;
-  }
+if(calculateDiamonds){
 
-  let days = 0;
+calculateDiamonds.addEventListener(
+"click",
+function(){
 
-  if (spinsPerDay > 0) {
-    days = diamonds / spinsPerDay;
-  }
 
-  document.getElementById("diamondDays").textContent =
-    days.toFixed(1);
-});
+const diamonds =
+Number(
+document.getElementById("diamondsOwned").value
+);
 
-function getParcelsToNextTier(totalParcels) {
-  const tiers = [150, 220, 290, 365, 435, 545, 625, 730, 875, 1100, 1500];
 
-  for (let i = 0; i < tiers.length; i++) {
-    if (totalParcels < tiers[i]) {
-      return tiers[i] - totalParcels;
-    }
-  }
+const spins =
+Number(
+document.getElementById("spinsPerDay").value
+);
 
-  return 0;
+
+
+if(spins <= 0){
+
+document.getElementById("diamondDays")
+.textContent =
+"0";
+
+return;
+
 }
 
-function getBadgesToNextLevel(badges) {
-  const badgeLevels = [1, 11, 31, 61, 101];
 
-  for (let i = 0; i < badgeLevels.length; i++) {
-    if (badges < badgeLevels[i]) {
-      return badgeLevels[i] - badges;
-    }
-  }
 
-  return 0;
+const days =
+diamonds / spins;
+
+
+
+document.getElementById("diamondDays")
+.textContent =
+days.toFixed(1);
+
+
+
+});
+
+
 }
 
-calculateGoal.addEventListener("click", function () {
-  const common = Number(document.getElementById("commonParcels").value);
-  const rare = Number(document.getElementById("rareParcels").value);
-  const epic = Number(document.getElementById("epicParcels").value);
-  const legendary = Number(document.getElementById("legendaryParcels").value);
-  const badges = Number(document.getElementById("badgesOwned").value);
-  const boostHours = Number(document.getElementById("boostHours").value);
-  const srbHours = Number(document.getElementById("srbHours").value);
-  const dailyGoal = Number(document.getElementById("dailyGoal").value);
 
-  const currentParcels = common + rare + epic + legendary;
 
-  let testParcels = currentParcels;
 
-  while (
-    estimateDailyRentFromParcels(testParcels, badges, boostHours, srbHours) < dailyGoal
-  ) {
-    testParcels++;
+/* ============================================
+   Daily Goal Calculator
+============================================ */
 
-    if (testParcels > 10000) {
-      break;
-    }
-  }
 
-  const additionalParcels = testParcels - currentParcels;
+function estimateDailyRentWithParcels(
+parcels,
+badges,
+boostHours,
+srbHours
+){
 
-  document.getElementById("goalAmount").textContent =
-    dailyGoal.toFixed(2);
 
-  document.getElementById("goalParcelsNeeded").textContent =
-    testParcels;
+let averageRent =
+parcels *
+0.00000000158;
 
-  document.getElementById("additionalParcelsNeeded").textContent =
-    additionalParcels;
+
+averageRent *=
+getBadgeBonus(badges);
+
+
+
+const monthSeconds =
+60*60*24*30;
+
+
+const srbSeconds =
+srbHours*60*60;
+
+
+
+const regularSeconds =
+monthSeconds - srbSeconds;
+
+
+
+const boost =
+getBoostMultiplier(parcels);
+
+
+
+const boosted =
+boostHours/24;
+
+
+const unboosted =
+1-boosted;
+
+
+
+const regular =
+averageRent *
+regularSeconds *
+(
+(boosted*boost)+
+unboosted
+);
+
+
+
+const srb =
+averageRent *
+srbSeconds *
+50;
+
+
+
+return (
+regular+srb
+)/30;
+
+
+}
+
+
+
+if(calculateGoal){
+
+
+calculateGoal.addEventListener(
+"click",
+function(){
+
+
+const common =
+Number(document.getElementById("commonParcels").value);
+
+
+const rare =
+Number(document.getElementById("rareParcels").value);
+
+
+const epic =
+Number(document.getElementById("epicParcels").value);
+
+
+const legendary =
+Number(document.getElementById("legendaryParcels").value);
+
+
+const badges =
+Number(document.getElementById("badgesOwned").value);
+
+
+const boostHours =
+Number(document.getElementById("boostHours").value);
+
+
+const srbHours =
+Number(document.getElementById("srbHours").value);
+
+
+const goal =
+Number(document.getElementById("dailyGoal").value);
+
+
+
+let current =
+common+
+rare+
+epic+
+legendary;
+
+
+
+let needed =
+current;
+
+
+
+while(
+estimateDailyRentWithParcels(
+needed,
+badges,
+boostHours,
+srbHours
+)
+<
+goal
+){
+
+needed++;
+
+
+if(needed > 10000){
+break;
+}
+
+
+}
+
+
+
+document.getElementById("goalAmount")
+.textContent =
+goal.toFixed(2);
+
+
+
+document.getElementById("goalParcelsNeeded")
+.textContent =
+needed;
+
+
+
+document.getElementById("additionalParcelsNeeded")
+.textContent =
+needed-current;
+
+
+
 });
 
-const calculateChecklist = document.getElementById("calculateChecklist");
-const clearChecklist = document.getElementById("clearChecklist");
 
-calculateChecklist.addEventListener("click", function () {
-  const doneChallenges = document.querySelectorAll(".done-challenge");
-  const plannedChallenges = document.querySelectorAll(".planned-challenge");
+}
 
-  let completedPoints = 0;
-  let plannedPoints = 0;
 
-  doneChallenges.forEach(function (challenge) {
-    if (challenge.checked) {
-      completedPoints += Number(challenge.dataset.points);
-    }
-  });
 
-  plannedChallenges.forEach(function (challenge) {
-    if (challenge.checked) {
-      plannedPoints += Number(challenge.dataset.points);
-    }
-  });
+/* ============================================
+   Auto Reset Invalid Numbers
+============================================ */
 
-  const projectedPoints = completedPoints + plannedPoints;
-  const pointsNeeded = Math.max(1600 - projectedPoints, 0);
 
-  document.getElementById("completedPoints").textContent = completedPoints;
-  document.getElementById("plannedPoints").textContent = plannedPoints;
-  document.getElementById("projectedPoints").textContent = projectedPoints;
-  document.getElementById("neededChecklistPoints").textContent = pointsNeeded;
+document.querySelectorAll(
+"input[type='number']"
+)
+.forEach(function(input){
+
+
+input.addEventListener(
+"change",
+function(){
+
+
+if(this.value < 0){
+
+this.value = 0;
+
+}
+
+
 });
 
-clearChecklist.addEventListener("click", function () {
-  const boxes = document.querySelectorAll("input[type='checkbox']");
 
-  boxes.forEach(function (box) {
-    box.checked = false;
-  });
-
-  document.getElementById("completedPoints").textContent = 0;
-  document.getElementById("plannedPoints").textContent = 0;
-  document.getElementById("projectedPoints").textContent = 0;
-  document.getElementById("neededChecklistPoints").textContent = 1600;
 });
