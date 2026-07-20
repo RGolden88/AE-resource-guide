@@ -45,6 +45,14 @@ nav a:hover {
   margin: 32px auto;
 }
 
+.discord-button {
+  display: inline-block;
+  padding: 12px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
 .hero-card,
 .card,
 .chat-card {
