@@ -529,79 +529,55 @@ days.toFixed(1);
 
 
 
-
 /* ============================================
-   Daily Goal Calculator
+   Goal Calculator
 ============================================ */
 
-
 function estimateDailyRentWithParcels(
-parcels,
-badges,
-boostHours,
-srbHours
+    parcels,
+    badges,
+    boostHours,
+    srbHours
 ){
 
+    let averageRent =
+        parcels * 0.00000000158;
 
-let averageRent =
-parcels *
-0.00000000158;
+    averageRent *=
+        getBadgeBonus(badges);
 
+    const monthSeconds =
+        60 * 60 * 24 * 30;
 
-averageRent *=
-getBadgeBonus(badges);
+    const srbSeconds =
+        srbHours * 60 * 60;
 
+    const regularSeconds =
+        monthSeconds - srbSeconds;
 
+    const boost =
+        getBoostMultiplier(parcels);
 
-const monthSeconds =
-60*60*24*30;
+    const boosted =
+        boostHours / 24;
 
+    const unboosted =
+        1 - boosted;
 
-const srbSeconds =
-srbHours*60*60;
+    const regular =
+        averageRent *
+        regularSeconds *
+        (
+            (boosted * boost) +
+            unboosted
+        );
 
+    const srb =
+        averageRent *
+        srbSeconds *
+        50;
 
-
-const regularSeconds =
-monthSeconds - srbSeconds;
-
-
-
-const boost =
-getBoostMultiplier(parcels);
-
-
-
-const boosted =
-boostHours/24;
-
-
-const unboosted =
-1-boosted;
-
-
-
-const regular =
-averageRent *
-regularSeconds *
-(
-(boosted*boost)+
-unboosted
-);
-
-
-
-const srb =
-averageRent *
-srbSeconds *
-50;
-
-
-
-return (
-regular+srb
-)/30;
-
+    return (regular + srb) / 30;
 
 }
 
@@ -609,104 +585,117 @@ regular+srb
 
 if(calculateGoal){
 
-
 calculateGoal.addEventListener(
 "click",
 function(){
 
+    const common =
+    Number(document.getElementById("commonParcels").value);
 
-const common =
-Number(document.getElementById("commonParcels").value);
+    const rare =
+    Number(document.getElementById("rareParcels").value);
 
+    const epic =
+    Number(document.getElementById("epicParcels").value);
 
-const rare =
-Number(document.getElementById("rareParcels").value);
+    const legendary =
+    Number(document.getElementById("legendaryParcels").value);
 
+    const badges =
+    Number(document.getElementById("badgesOwned").value);
 
-const epic =
-Number(document.getElementById("epicParcels").value);
+    const boostHours =
+    Number(document.getElementById("boostHours").value);
 
+    const srbHours =
+    Number(document.getElementById("srbHours").value);
 
-const legendary =
-Number(document.getElementById("legendaryParcels").value);
+    const goal =
+    Number(document.getElementById("dailyGoal").value);
 
+    const goalType =
+    document.getElementById("goalType").value;
 
-const badges =
-Number(document.getElementById("badgesOwned").value);
+    let dailyGoal;
 
+    switch(goalType){
 
-const boostHours =
-Number(document.getElementById("boostHours").value);
+        case "hour":
+            dailyGoal = goal * 24;
+            break;
 
+        case "day":
+            dailyGoal = goal;
+            break;
 
-const srbHours =
-Number(document.getElementById("srbHours").value);
+        case "week":
+            dailyGoal = goal / 7;
+            break;
 
+        case "month":
+            dailyGoal = goal / 30.4375;
+            break;
 
-const goal =
-Number(document.getElementById("dailyGoal").value);
+        case "year":
+            dailyGoal = goal / 365;
+            break;
 
+        default:
+            dailyGoal = goal;
 
+    }
 
-let current =
-common+
-rare+
-epic+
-legendary;
+    let current =
+        common +
+        rare +
+        epic +
+        legendary;
 
+    let needed =
+        current;
 
+    while(
+        estimateDailyRentWithParcels(
+            needed,
+            badges,
+            boostHours,
+            srbHours
+        ) < dailyGoal
+    ){
 
-let needed =
-current;
+        needed++;
 
+        if(needed > 10000){
+            break;
+        }
 
+    }
 
-while(
-estimateDailyRentWithParcels(
-needed,
-badges,
-boostHours,
-srbHours
-)
-<
-goal
-){
+    document.getElementById("goalAmount").textContent =
+        goal.toFixed(2);
 
-needed++;
+    document.getElementById("dailyEquivalent").textContent =
+        dailyGoal.toFixed(2);
 
+    const labels = {
+        hour: "per hour",
+        day: "per day",
+        week: "per week",
+        month: "per month",
+        year: "per year"
+    };
 
-if(needed > 10000){
-break;
-}
+    document.getElementById("goalLabel").textContent =
+        labels[goalType];
 
+    document.getElementById("goalParcelsNeeded").textContent =
+        needed;
 
-}
-
-
-
-document.getElementById("goalAmount")
-.textContent =
-goal.toFixed(2);
-
-
-
-document.getElementById("goalParcelsNeeded")
-.textContent =
-needed;
-
-
-
-document.getElementById("additionalParcelsNeeded")
-.textContent =
-needed-current;
-
-
+    document.getElementById("additionalParcelsNeeded").textContent =
+        Math.max(0, needed - current);
 
 });
-
-
 }
-
 
 
 /* ============================================
