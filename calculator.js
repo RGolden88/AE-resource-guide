@@ -795,3 +795,97 @@ needed-current
 });
 
 }
+
+/* ============================================
+   Diamond Calculator
+============================================ */
+
+
+if(calculateDiamonds){
+
+calculateDiamonds.addEventListener(
+"click",
+function(){
+
+
+const diamonds =
+Number(
+document.getElementById("diamondsOwned").value
+);
+
+
+
+const spins =
+Number(
+document.getElementById("spinsPerDay").value
+);
+
+
+
+if(spins <= 0){
+
+document.getElementById("diamondDays")
+.textContent =
+"0";
+
+return;
+
+}
+
+
+
+const days =
+diamonds / spins;
+
+
+
+document.getElementById("diamondDays")
+.textContent =
+days.toFixed(1);
+
+
+
+});
+
+}
+
+
+
+
+/* ============================================
+   Input Protection
+============================================ */
+
+
+document.querySelectorAll(
+"input[type='number']"
+)
+.forEach(function(input){
+
+
+input.addEventListener(
+"change",
+function(){
+
+
+if(this.value < 0){
+
+this.value = 0;
+
+}
+
+
+});
+
+
+});
+
+
+
+/* ============================================
+   Calculator Loaded
+============================================ */
+
+console.log(
+"Atlas Earth Calculator Loaded Successfully"
+);
