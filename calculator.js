@@ -533,6 +533,10 @@ days.toFixed(1);
    Goal Calculator
 ============================================ */
 
+/* ============================================
+   Goal Calculator
+============================================ */
+
 function estimateDailyRentWithParcels(
     parcels,
     badges,
@@ -579,6 +583,140 @@ function estimateDailyRentWithParcels(
 
     return (regular + srb) / 30;
 
+}
+
+
+
+if(calculateGoal){
+
+calculateGoal.addEventListener(
+"click",
+function(){
+
+    const common =
+    Number(document.getElementById("commonParcels").value);
+
+    const rare =
+    Number(document.getElementById("rareParcels").value);
+
+    const epic =
+    Number(document.getElementById("epicParcels").value);
+
+    const legendary =
+    Number(document.getElementById("legendaryParcels").value);
+
+    const badges =
+    Number(document.getElementById("badgesOwned").value);
+
+    const boostHours =
+    Number(document.getElementById("boostHours").value);
+
+    const srbHours =
+    Number(document.getElementById("srbHours").value);
+
+    const goal =
+    Number(document.getElementById("dailyGoal").value);
+
+    const goalType =
+    document.getElementById("goalType").value;
+
+    let dailyGoal;
+
+    switch(goalType){
+
+        case "hour":
+            dailyGoal = goal * 24;
+            break;
+
+        case "day":
+            dailyGoal = goal;
+            break;
+
+        case "week":
+            dailyGoal = goal / 7;
+            break;
+
+        case "month":
+            dailyGoal = goal / 30.4375;
+            break;
+
+        case "year":
+            dailyGoal = goal / 365;
+            break;
+
+        default:
+            dailyGoal = goal;
+
+    }
+
+    let current =
+        common +
+        rare +
+        epic +
+        legendary;
+
+    let needed =
+        current;
+
+    while(
+        estimateDailyRentWithParcels(
+            needed,
+            badges,
+            boostHours,
+            srbHours
+        ) < dailyGoal
+    ){
+
+        needed++;
+
+        if(needed > 10000){
+            break;
+        }
+
+    }
+
+while (true) {
+
+    const monthlyIncome =
+        estimateDailyRentWithParcels(
+            needed,
+            badges,
+            boostHours,
+            srbHours
+        ) * 30;
+
+    let comparisonIncome;
+
+    switch (goalType) {
+
+        case "hour":
+            comparisonIncome = monthlyIncome / (30 * 24);
+            break;
+
+        case "day":
+            comparisonIncome = monthlyIncome / 30;
+            break;
+
+        case "week":
+            comparisonIncome = monthlyIncome / (30 / 7);
+            break;
+
+        case "month":
+            comparisonIncome = monthlyIncome;
+            break;
+
+        case "year":
+            comparisonIncome = monthlyIncome * 12;
+            break;
+    }
+
+    if (comparisonIncome >= goal)
+        break;
+
+    needed++;
+
+    if (needed > 10000)
+        break;
 }
 
 
