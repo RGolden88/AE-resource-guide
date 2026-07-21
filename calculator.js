@@ -1,72 +1,77 @@
 /* ============================================
-   Atlas Earth Calculator
-   Cleaned Calculator JS
+   Atlas Earth Calculator JS
+   Rebuilt for calculator.html
+============================================ */
+
+
+/* ============================================
+   Element References
 ============================================ */
 
 const calculateRent = document.getElementById("calculateRent");
-const calculateDiamonds = document.getElementById("calculateDiamonds");
+const calculateSRBOnly = document.getElementById("calculateSRBOnly");
 const calculateGoal = document.getElementById("calculateGoal");
+const calculateDiamonds = document.getElementById("calculateDiamonds");
+
 
 
 /* ============================================
    Boost Tier
 ============================================ */
 
-function getBoostMultiplier(totalParcels) {
+function getBoostMultiplier(totalParcels){
 
-    if (totalParcels <= 150) return 30;
-    if (totalParcels <= 220) return 20;
-    if (totalParcels <= 290) return 15;
-    if (totalParcels <= 365) return 12;
-    if (totalParcels <= 435) return 10;
-    if (totalParcels <= 545) return 8;
-    if (totalParcels <= 625) return 7;
-    if (totalParcels <= 730) return 6;
-    if (totalParcels <= 875) return 5;
-    if (totalParcels <= 1100) return 4;
-    if (totalParcels <= 1500) return 3;
+    if(totalParcels <= 150) return 30;
+    if(totalParcels <= 220) return 20;
+    if(totalParcels <= 290) return 15;
+    if(totalParcels <= 365) return 12;
+    if(totalParcels <= 435) return 10;
+    if(totalParcels <= 545) return 8;
+    if(totalParcels <= 625) return 7;
+    if(totalParcels <= 730) return 6;
+    if(totalParcels <= 875) return 5;
+    if(totalParcels <= 1100) return 4;
+    if(totalParcels <= 1500) return 3;
 
     return 2;
 }
+
 
 
 /* ============================================
    Badge Bonus
 ============================================ */
 
-function getBadgeBonus(badges) {
+function getBadgeBonus(badges){
 
-    if (badges >= 101) return 1.25;
-    if (badges >= 61) return 1.20;
-    if (badges >= 31) return 1.15;
-    if (badges >= 11) return 1.10;
-    if (badges >= 1) return 1.05;
+    if(badges >= 101) return 1.25;
+    if(badges >= 61) return 1.20;
+    if(badges >= 31) return 1.15;
+    if(badges >= 11) return 1.10;
+    if(badges >= 1) return 1.05;
 
     return 1;
 }
 
 
+
 /* ============================================
-   Suggestion
+   Buy Suggestion
 ============================================ */
 
-function getBuySuggestion(totalParcels, badges) {
+function getBuySuggestion(total,badges){
 
-    if (totalParcels < 40) {
+    if(total < 40)
         return "Buy parcels first.";
-    }
 
-    if (badges === 0) {
+    if(badges === 0)
         return "Consider buying your first badge.";
-    }
 
-    if (totalParcels >= 150 && badges < 11) {
-        return "Badges may increase your earnings.";
-    }
+    if(total >= 150 && badges < 11)
+        return "Badges may increase earnings.";
 
-    if (badges >= 11) {
+    if(badges >= 11)
         return "Parcels may be better until next badge tier.";
-    }
 
     return "Keep building your land.";
 }
@@ -74,7 +79,7 @@ function getBuySuggestion(totalParcels, badges) {
 
 
 /* ============================================
-   Parcel Earnings
+   Parcel Income With LPU
 ============================================ */
 
 function calculateParcelIncome(
@@ -85,69 +90,64 @@ function calculateParcelIncome(
     lpu
 ){
 
-    let remainingLPU = lpu;
+    let remaining = lpu;
 
 
-    // LPUs upgrade common first
-    let upgradedCommon = Math.min(
-        remainingLPU,
-        common
-    );
+    let upgradeCommon =
+        Math.min(remaining, common);
 
-    remainingLPU -= upgradedCommon;
+    remaining -= upgradeCommon;
 
 
-    let upgradedRare = Math.min(
-        remainingLPU,
-        rare
-    );
+    let upgradeRare =
+        Math.min(remaining, rare);
 
-    remainingLPU -= upgradedRare;
+    remaining -= upgradeRare;
 
 
-    let upgradedEpic = Math.min(
-        remainingLPU,
-        epic
-    );
+    let upgradeEpic =
+        Math.min(remaining, epic);
 
 
-    let normalCommon = common - upgradedCommon;
-    let normalRare = rare - upgradedRare;
-    let normalEpic = epic - upgradedEpic;
+
+    let normalCommon =
+        common - upgradeCommon;
+
+    let normalRare =
+        rare - upgradeRare;
+
+    let normalEpic =
+        epic - upgradeEpic;
 
 
-    let legendaryParcels =
+
+    let legendaryTotal =
         legendary +
-        upgradedCommon +
-        upgradedRare +
-        upgradedEpic;
+        upgradeCommon +
+        upgradeRare +
+        upgradeEpic;
 
 
-    const commonRent =
-        normalCommon * 0.0000000011;
 
-    const rareRent =
-        normalRare * 0.0000000016;
+    let rent =
 
-    const epicRent =
-        normalEpic * 0.0000000022;
+        (normalCommon * 0.0000000011) +
 
-    const legendaryRent =
-        legendaryParcels * 0.0000000044;
+        (normalRare * 0.0000000016) +
+
+        (normalEpic * 0.0000000022) +
+
+        (legendaryTotal * 0.0000000044);
 
 
-    return (
-        commonRent +
-        rareRent +
-        epicRent +
-        legendaryRent
-    );
+    return rent;
+
 }
 
 
 
 /* ============================================
-   Monthly Earnings Calculator
+   Monthly Calculator
 ============================================ */
 
 function calculateMonthlyRent(data){
@@ -163,48 +163,59 @@ function calculateMonthlyRent(data){
         );
 
 
-    rentPerSecond *= getBadgeBonus(data.badges);
+    rentPerSecond *=
+        getBadgeBonus(data.badges);
 
 
-    const secondsMonth =
+
+    const monthSeconds =
         60 * 60 * 24 * 30;
 
 
     const srbSeconds =
-        data.srbHours * 60 * 60;
+        data.srbHours * 3600;
 
 
     const regularSeconds =
-        secondsMonth - srbSeconds;
+        monthSeconds - srbSeconds;
+
 
 
     const boost =
-        getBoostMultiplier(
-            data.total
-        );
+        getBoostMultiplier(data.total);
 
 
-    const boostedFraction =
+
+    const boosted =
         data.boostHours / 24;
 
 
-    const normalFraction =
-        1 - boostedFraction;
+    const unboosted =
+        1 - boosted;
+
 
 
     const regularRent =
+
         rentPerSecond *
+
         regularSeconds *
+
         (
-            boostedFraction * boost +
-            normalFraction
+            (boosted * boost) +
+            unboosted
         );
 
 
+
     const srbRent =
+
         rentPerSecond *
+
         srbSeconds *
+
         50;
+
 
 
     return regularRent + srbRent;
@@ -214,8 +225,11 @@ function calculateMonthlyRent(data){
 
 
 /* ============================================
-   Main Calculator Button
+   Main Rent Calculator
 ============================================ */
+
+
+if(calculateRent){
 
 calculateRent.addEventListener(
 "click",
@@ -225,64 +239,57 @@ function(){
 const common =
 Number(document.getElementById("commonParcels").value);
 
+
 const rare =
 Number(document.getElementById("rareParcels").value);
+
 
 const epic =
 Number(document.getElementById("epicParcels").value);
 
+
 const legendary =
 Number(document.getElementById("legendaryParcels").value);
+
 
 const lpu =
 Number(document.getElementById("lpuCount").value);
 
+
 const badges =
 Number(document.getElementById("badgesOwned").value);
 
+
 const boostHours =
 Number(document.getElementById("boostHours").value);
+
 
 const srbHours =
 Number(document.getElementById("srbHours").value);
 
 
+
 const total =
-common +
-rare +
-epic +
-legendary;
+common + rare + epic + legendary;
 
 
 
-/* Percentages */
-
-if(total > 0){
+/* Parcel Percentages */
 
 document.getElementById("commonPercent").textContent =
-((common / total)*100).toFixed(1)+"%";
+total ? ((common/total)*100).toFixed(1)+"%" : "0%";
 
 
 document.getElementById("rarePercent").textContent =
-((rare / total)*100).toFixed(1)+"%";
+total ? ((rare/total)*100).toFixed(1)+"%" : "0%";
 
 
 document.getElementById("epicPercent").textContent =
-((epic / total)*100).toFixed(1)+"%";
+total ? ((epic/total)*100).toFixed(1)+"%" : "0%";
 
 
 document.getElementById("legendaryPercent").textContent =
-((legendary / total)*100).toFixed(1)+"%";
-
-}
-else{
-
-document.getElementById("commonPercent").textContent="0%";
-document.getElementById("rarePercent").textContent="0%";
-document.getElementById("epicPercent").textContent="0%";
-document.getElementById("legendaryPercent").textContent="0%";
-
-}
+total ? ((legendary/total)*100).toFixed(1)+"%" : "0%";
 
 
 
@@ -302,11 +309,14 @@ total
 });
 
 
+
 const daily =
 monthly / 30;
 
+
 const weekly =
 daily * 7;
+
 
 const yearly =
 monthly * 12;
@@ -346,17 +356,21 @@ document.getElementById("portfolioValue").textContent =
 (total * (100/24)).toFixed(2);
 
 
+
 });
 
+}
+
 /* ============================================
-   SRB Calculator
+   SRB Event Calculator
 ============================================ */
+
 
 const srbDropdown =
 document.getElementById("srbHoursOnly");
 
 
-if (srbDropdown) {
+if(srbDropdown){
 
     for(let i = 1; i <= 64; i++){
 
@@ -376,29 +390,32 @@ if (srbDropdown) {
 
 
 
-/*
-   Calculate hourly SRB earnings
-*/
-
 function calculateHourlySRB(){
+
 
     const common =
     Number(document.getElementById("commonParcels").value);
 
+
     const rare =
     Number(document.getElementById("rareParcels").value);
+
 
     const epic =
     Number(document.getElementById("epicParcels").value);
 
+
     const legendary =
     Number(document.getElementById("legendaryParcels").value);
+
 
     const lpu =
     Number(document.getElementById("lpuCount").value);
 
+
     const badges =
     Number(document.getElementById("badgesOwned").value);
+
 
 
     const income =
@@ -411,20 +428,21 @@ function calculateHourlySRB(){
     );
 
 
+
     return (
+
         income *
+
         getBadgeBonus(badges) *
-        60 *
-        60 *
+
+        3600 *
+
         50
+
     );
 
 }
 
-
-
-const calculateSRBOnly =
-document.getElementById("calculateSRBOnly");
 
 
 if(calculateSRBOnly){
@@ -440,12 +458,14 @@ document.getElementById("srbHoursOnly").value
 );
 
 
-const hourly =
+
+const perHour =
 calculateHourlySRB();
 
 
-const total =
-hourly * hours;
+
+const earnings =
+perHour * hours;
 
 
 
@@ -457,75 +477,20 @@ hours;
 
 document.getElementById("srbPerHour")
 .textContent =
-hourly.toFixed(4);
+perHour.toFixed(4);
 
 
 
 document.getElementById("srbOnlyResult")
 .textContent =
-total.toFixed(4);
+earnings.toFixed(4);
 
 
 
 });
 
-
 }
 
-
-
-/* ============================================
-   Diamond Calculator
-============================================ */
-
-
-if(calculateDiamonds){
-
-calculateDiamonds.addEventListener(
-"click",
-function(){
-
-
-const diamonds =
-Number(
-document.getElementById("diamondsOwned").value
-);
-
-
-const spins =
-Number(
-document.getElementById("spinsPerDay").value
-);
-
-
-
-if(spins <= 0){
-
-document.getElementById("diamondDays")
-.textContent =
-"0";
-
-return;
-
-}
-
-
-
-const days =
-diamonds / spins;
-
-
-
-document.getElementById("diamondDays")
-.textContent =
-days.toFixed(1);
-
-
-
-});
-
-
-}
 
 
 
@@ -533,9 +498,7 @@ days.toFixed(1);
    Goal Calculator
 ============================================ */
 
-/* ============================================
-   Goal Calculator
-============================================ */
+
 
 function estimateDailyRentWithParcels(
     parcels,
@@ -544,44 +507,124 @@ function estimateDailyRentWithParcels(
     srbHours
 ){
 
-    let averageRent =
-        parcels * 0.00000000158;
 
-    averageRent *=
-        getBadgeBonus(badges);
+    let income =
+
+        parcels *
+
+        0.00000000158;
+
+
+
+    income *=
+    getBadgeBonus(badges);
+
+
 
     const monthSeconds =
-        60 * 60 * 24 * 30;
+    60 * 60 * 24 * 30;
+
+
 
     const srbSeconds =
-        srbHours * 60 * 60;
+    srbHours * 3600;
+
+
 
     const regularSeconds =
-        monthSeconds - srbSeconds;
+    monthSeconds - srbSeconds;
+
+
 
     const boost =
-        getBoostMultiplier(parcels);
+    getBoostMultiplier(parcels);
+
+
 
     const boosted =
-        boostHours / 24;
+    boostHours / 24;
+
+
 
     const unboosted =
-        1 - boosted;
+    1 - boosted;
+
+
 
     const regular =
-        averageRent *
+
+        income *
+
         regularSeconds *
+
         (
-            (boosted * boost) +
+
+            (boosted * boost)
+
+            +
+
             unboosted
+
         );
 
+
+
     const srb =
-        averageRent *
+
+        income *
+
         srbSeconds *
+
         50;
 
-    return (regular + srb) / 30;
+
+
+    return (
+
+        regular +
+
+        srb
+
+    ) / 30;
+
+
+}
+
+
+
+
+function convertGoalToDaily(amount,type){
+
+
+switch(type){
+
+
+case "hour":
+return amount * 24;
+
+
+case "day":
+return amount;
+
+
+case "week":
+return amount / 7;
+
+
+case "month":
+return amount / 30.4375;
+
+
+case "year":
+return amount / 365;
+
+
+default:
+return amount;
+
+
+}
+
 
 }
 
@@ -593,273 +636,162 @@ calculateGoal.addEventListener(
 "click",
 function(){
 
-    const common =
-    Number(document.getElementById("commonParcels").value);
 
-    const rare =
-    Number(document.getElementById("rareParcels").value);
 
-    const epic =
-    Number(document.getElementById("epicParcels").value);
+const goal =
+Number(
+document.getElementById("dailyGoal").value
+);
 
-    const legendary =
-    Number(document.getElementById("legendaryParcels").value);
 
-    const badges =
-    Number(document.getElementById("badgesOwned").value);
 
-    const boostHours =
-    Number(document.getElementById("boostHours").value);
+const goalType =
+document.getElementById("goalType").value;
 
-    const srbHours =
-    Number(document.getElementById("srbHours").value);
 
-    const goal =
-    Number(document.getElementById("dailyGoal").value);
 
-    const goalType =
-    document.getElementById("goalType").value;
+const dailyGoal =
+convertGoalToDaily(
+goal,
+goalType
+);
 
-    let dailyGoal;
 
-    switch(goalType){
 
-        case "hour":
-            dailyGoal = goal * 24;
-            break;
+const common =
+Number(document.getElementById("commonParcels").value);
 
-        case "day":
-            dailyGoal = goal;
-            break;
 
-        case "week":
-            dailyGoal = goal / 7;
-            break;
+const rare =
+Number(document.getElementById("rareParcels").value);
 
-        case "month":
-            dailyGoal = goal / 30.4375;
-            break;
 
-        case "year":
-            dailyGoal = goal / 365;
-            break;
+const epic =
+Number(document.getElementById("epicParcels").value);
 
-        default:
-            dailyGoal = goal;
 
-    }
+const legendary =
+Number(document.getElementById("legendaryParcels").value);
 
-    let current =
-        common +
-        rare +
-        epic +
-        legendary;
 
-    let needed =
-        current;
 
-    while(
-        estimateDailyRentWithParcels(
-            needed,
-            badges,
-            boostHours,
-            srbHours
-        ) < dailyGoal
-    ){
+const badges =
+Number(document.getElementById("badgesOwned").value);
 
-        needed++;
 
-        if(needed > 10000){
-            break;
-        }
+const boostHours =
+Number(document.getElementById("boostHours").value);
 
-    }
 
-while (true) {
+const srbHours =
+Number(document.getElementById("srbHours").value);
 
-    const monthlyIncome =
-        estimateDailyRentWithParcels(
-            needed,
-            badges,
-            boostHours,
-            srbHours
-        ) * 30;
 
-    let comparisonIncome;
 
-    switch (goalType) {
+let current =
 
-        case "hour":
-            comparisonIncome = monthlyIncome / (30 * 24);
-            break;
+common +
 
-        case "day":
-            comparisonIncome = monthlyIncome / 30;
-            break;
+rare +
 
-        case "week":
-            comparisonIncome = monthlyIncome / (30 / 7);
-            break;
+epic +
 
-        case "month":
-            comparisonIncome = monthlyIncome;
-            break;
+legendary;
 
-        case "year":
-            comparisonIncome = monthlyIncome * 12;
-            break;
-    }
 
-    if (comparisonIncome >= goal)
-        break;
 
-    needed++;
+let needed =
+current;
 
-    if (needed > 10000)
-        break;
-}
 
 
+while(
 
-if(calculateGoal){
+estimateDailyRentWithParcels(
 
-calculateGoal.addEventListener(
-"click",
-function(){
+needed,
 
-    const common =
-    Number(document.getElementById("commonParcels").value);
+badges,
 
-    const rare =
-    Number(document.getElementById("rareParcels").value);
+boostHours,
 
-    const epic =
-    Number(document.getElementById("epicParcels").value);
+srbHours
 
-    const legendary =
-    Number(document.getElementById("legendaryParcels").value);
-
-    const badges =
-    Number(document.getElementById("badgesOwned").value);
-
-    const boostHours =
-    Number(document.getElementById("boostHours").value);
-
-    const srbHours =
-    Number(document.getElementById("srbHours").value);
-
-    const goal =
-    Number(document.getElementById("dailyGoal").value);
-
-    const goalType =
-    document.getElementById("goalType").value;
-
-    let dailyGoal;
-
-    switch(goalType){
-
-        case "hour":
-            dailyGoal = goal * 24;
-            break;
-
-        case "day":
-            dailyGoal = goal;
-            break;
-
-        case "week":
-            dailyGoal = goal / 7;
-            break;
-
-        case "month":
-            dailyGoal = goal / 30.4375;
-            break;
-
-        case "year":
-            dailyGoal = goal / 365;
-            break;
-
-        default:
-            dailyGoal = goal;
-
-    }
-
-    let current =
-        common +
-        rare +
-        epic +
-        legendary;
-
-    let needed =
-        current;
-
-    while(
-        estimateDailyRentWithParcels(
-            needed,
-            badges,
-            boostHours,
-            srbHours
-        ) < dailyGoal
-    ){
-
-        needed++;
-
-        if(needed > 10000){
-            break;
-        }
-
-    }
-
-    document.getElementById("goalAmount").textContent =
-        goal.toFixed(2);
-
-    document.getElementById("dailyEquivalent").textContent =
-        dailyGoal.toFixed(2);
-
-    const labels = {
-        hour: "per hour",
-        day: "per day",
-        week: "per week",
-        month: "per month",
-        year: "per year"
-    };
-
-    document.getElementById("goalLabel").textContent =
-        labels[goalType];
-
-    document.getElementById("goalParcelsNeeded").textContent =
-        needed;
-
-    document.getElementById("additionalParcelsNeeded").textContent =
-        Math.max(0, needed - current);
-
-});
-}
-
-
-/* ============================================
-   Auto Reset Invalid Numbers
-============================================ */
-
-
-document.querySelectorAll(
-"input[type='number']"
 )
-.forEach(function(input){
+
+<
+
+dailyGoal
+
+){
 
 
-input.addEventListener(
-"change",
-function(){
+
+needed++;
 
 
-if(this.value < 0){
 
-this.value = 0;
+if(needed > 10000){
+
+break;
 
 }
 
 
-});
+}
 
 
+
+
+document.getElementById("goalAmount")
+.textContent =
+goal.toFixed(2);
+
+
+
+document.getElementById("dailyEquivalent")
+.textContent =
+dailyGoal.toFixed(2);
+
+
+
+const labels = {
+
+hour:"per hour",
+
+day:"per day",
+
+week:"per week",
+
+month:"per month",
+
+year:"per year"
+
+};
+
+
+
+document.getElementById("goalLabel")
+.textContent =
+labels[goalType];
+
+
+
+document.getElementById("goalParcelsNeeded")
+.textContent =
+needed;
+
+
+
+document.getElementById("additionalParcelsNeeded")
+.textContent =
+Math.max(
+0,
+needed-current
+);
+
+
+
 });
+
+}
