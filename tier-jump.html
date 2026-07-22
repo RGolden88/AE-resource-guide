@@ -156,27 +156,50 @@ Suppose you currently own <strong>150 parcels</strong>. Buying just one more par
 
 <h2>Tier Jump Calculator</h2>
 
-<p>
+<label>Current Parcels</label>
+<input type="number" id="currentParcels" value="150">
 
-Our upcoming Tier Jump Calculator will help you determine:
+<label>Current Atlas Bucks</label>
+<input type="number" id="currentAB" value="0">
 
-</p>
+<label>Average Atlas Bucks Earned Per Day</label>
+<input type="number" id="abPerDay" value="50">
 
-<ul>
+<label>Current Badges</label>
+<input type="number" id="currentBadges" value="1">
 
-<li>Parcels needed to reach the next boost tier.</li>
+<button id="calculateTierJump">
+Calculate Tier Jump
+</button>
 
-<li>Atlas Bucks required.</li>
+<div class="result-box">
 
-<li>Estimated time until your next jump.</li>
+<p><strong>Current Tier:</strong>
+<span id="currentTier">30x</span></p>
 
-<li>Whether buying now or waiting is the better strategy.</li>
+<p><strong>Next Tier Ends At:</strong>
+<span id="nextTier">150</span> Parcels</p>
 
-</ul>
+<p><strong>Parcels Needed:</strong>
+<span id="neededParcels">0</span></p>
 
-<p><strong>Coming Soon!</strong></p>
+<p><strong>Atlas Bucks Needed:</strong>
+<span id="neededAB">0</span></p>
+
+<p><strong>Additional AB Needed:</strong>
+<span id="remainingAB">0</span></p>
+
+<p><strong>Estimated Days:</strong>
+<span id="daysNeeded">0</span></p>
+
+<p><strong>Recommendation:</strong></p>
+
+<p id="tierRecommendation"></p>
+
+</div>
 
 </section>
+
 
 <section class="card">
 
