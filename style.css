@@ -32,3 +32,40 @@ body {
   border-radius: 12px;
   box-shadow: 0 0 20px rgba(0,0,0,.5);
 }
+
+.partner-section{
+    max-width:900px;
+    margin:50px auto;
+    padding:30px;
+    text-align:center;
+    background:#222;
+    border:2px solid #d4af37;
+    border-radius:12px;
+}
+
+.partner-logo{
+    width:220px;
+    max-width:90%;
+    margin:20px auto;
+    display:block;
+    transition:.3s;
+}
+
+.partner-logo:hover{
+    transform:scale(1.05);
+}
+
+.partner-button{
+    display:inline-block;
+    margin-top:20px;
+    padding:12px 25px;
+    background:#d4af37;
+    color:#111;
+    text-decoration:none;
+    font-weight:bold;
+    border-radius:8px;
+}
+
+.partner-button:hover{
+    background:#f3d56b;
+}
