@@ -45,14 +45,6 @@ nav a:hover {
   margin: 32px auto;
 }
 
-.discord-button {
-  display: inline-block;
-  padding: 12px 24px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: bold;
-}
-
 .hero-card,
 .card,
 .chat-card {
@@ -280,68 +272,113 @@ footer {
     grid-template-columns: 1fr;
   }
 
-  /* Sponsor / Advertisement Grid */
-.partner-grid {
-    display: flex;
-    justify-content: center;
-    align-items: stretch;
-    gap: 25px;
-    flex-wrap: wrap;
-    margin: 30px auto;
-}
-
-/* Advertisement Cards */
-.partner-card {
-    background: rgba(255, 255, 255, 0.95);
-    color: #222;
-    width: 280px;
-    min-height: 350px;
-    padding: 20px;
-    border-radius: 16px;
-    text-align: center;
-    box-shadow: 0 6px 18px rgba(0,0,0,.35);
-}
-
-/* Make both logos exactly the same size */
-.partner-logo,
-.web-logo {
-    width: 170px;
-    height: 170px;
-    object-fit: contain;
-    display: block;
-    margin: 0 auto 15px;
-}
-
-/* Advertisement buttons */
-.partner-button {
-    display: inline-block;
-    background: #2a9d8f;
-    color: white;
-    padding: 10px 18px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.partner-button:hover {
-    background: #21867a;
-}
-
-/* Mobile */
-@media (max-width: 600px) {
-
-    .partner-card {
-        width: 90%;
-    }
-
-    .partner-logo,
-    .web-logo {
-        width: 140px;
-        height: 140px;
-    }
-}
-
   .parcel-type {
     font-size: 14px;
+  }
+}
+
+.confirmed-badge-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.confirmed-badge-card {
+  background: rgba(255, 255, 255, 0.92);
+  color: #222;
+  padding: 12px;
+  border-radius: 14px;
+  text-align: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.confirmed-badge-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+}
+
+.confirmed-badge-card a {
+  display: block;
+  text-decoration: none;
+}
+
+.confirmed-badge-card img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  display: block;
+  border-radius: 12px;
+  background: white;
+}
+
+.confirmed-badge-card p {
+  margin: 10px 0 0;
+  color: #222;
+  font-size: 14px;
+  font-weight: bold;
+  text-shadow: none;
+}
+
+@media (max-width: 900px) {
+  .confirmed-badge-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 550px) {
+  .confirmed-badge-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+}
+
+.parcel-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.parcel-item {
+  background: #ffffff;
+  border: 2px solid #d9e1e8;
+  border-radius: 12px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.parcel-image {
+  width: 100%;
+  max-width: 200px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.parcel-item h3 {
+  margin: 12px 0 6px;
+}
+
+.parcel-item p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+@media (max-width: 800px) {
+  .parcel-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .parcel-list {
+    grid-template-columns: 1fr;
   }
 }
